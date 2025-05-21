@@ -5,7 +5,8 @@ import { AppService } from './app.service';
 import { ConfigModule } from '@nestjs/config';
 import { MongooseModule } from '@nestjs/mongoose';
 import { UsersModule } from './users/users.module';
-import { TemplateModule } from './templates/templates.module'
+import { TemplateModule } from './templates/templates.module';
+import { InputsModule } from './inputs/inputs.module';
 
 console.log('MONGO URI:', process.env.MONGO_URI);
 
@@ -16,7 +17,8 @@ console.log('MONGO URI:', process.env.MONGO_URI);
     }),
     MongooseModule.forRoot(process.env.MONGO_URI ?? ''),
     UsersModule,
-TemplateModule,
+    TemplateModule,
+InputsModule
   ],
   controllers: [AppController],
   providers: [AppService, PrismaService],

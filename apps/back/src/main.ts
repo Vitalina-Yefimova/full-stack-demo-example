@@ -5,9 +5,11 @@ async function bootstrap() {
   const app = await NestFactory.create(AppModule);
   app.enableCors();
   await app.listen(process.env.PORT ?? 3000);
-  console.log('\n Backend is running at:');
-  console.log('Users API       → http://localhost:3000/users');
-  console.log('Templates API   → http://localhost:3000/templates\n');
+  console.table({
+  'Users API': 'http://localhost:3000/users',
+  'Templates API': 'http://localhost:3000/templates',
+  'Inputs API': 'http://localhost:3000/inputs',
+});
 }
 bootstrap();
 

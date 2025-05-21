@@ -3,6 +3,7 @@ import { useState } from 'react';
 function App() {
   const [users, setUsers] = useState([]);
   const [templates, setTemplates] = useState([]);
+  const [inputs, setInputs] = useState([]);
 
   const getUsers = async () => {
     const res = await fetch('http://localhost:3000/users');
@@ -14,6 +15,12 @@ function App() {
     const res = await fetch('http://localhost:3000/templates');
     const data = await res.json();
     setTemplates(data);
+  };
+
+  const getInputs = async () => {
+    const res = await fetch('http://localhost:3000/inputs');
+    const data = await res.json();
+    setInputs(data);
   };
 
   return (
@@ -62,6 +69,36 @@ function App() {
                 >
                   {tpl.text}
                 </button>
+              ))}
+            </div>
+          )}
+        </div>
+
+
+        {/* Inputs Section */}
+        <div>
+          <div className="space-y-2">
+            <button
+              onClick={getInputs}
+              className="w-full bg-purple-500 hover:bg-purple-600 text-white font-semibold py-2 rounded shadow-lg"
+            >
+              Load Inputs (MongoDB)
+            </button>
+          </div>
+
+          {inputs.length > 0 && (
+            <div className="mt-4 space-y-2 text-left">
+              {inputs.map((input) => (
+                <div
+                  key={input._id}
+                  className="p-3 bg-white rounded shadow text-sm"
+                >
+                  <div><strong>Label:</strong> {input.label}</div>
+                  <div><strong>Type:</strong> {input.type}</div>
+                  <div><strong>Placeholder:</strong> {input.placeholder}</div>
+                  <div><strong>Required:</strong> {input.required ? 'Yes' : 'No'}</div>
+                  <div><strong>Order:</strong> {input.order}</div>
+                </div>
               ))}
             </div>
           )}
